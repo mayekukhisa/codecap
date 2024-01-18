@@ -1,0 +1,27 @@
+{
+   "name": "codecap",
+   "description": "A file header standardization tool",
+   "version": "0.1.0",
+   "type": "module",
+   "private": true,
+   "scripts": {
+      "build": "tsc",
+      "start": "node dist/index.js",
+      "lint": "eslint --ext .ts src/ && prettier --check ./**/*.{json,md,yml} --ignore-path .gitignore",
+      "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{json,md,yml} --ignore-path .gitignore"
+   },
+   "dependencies": {
+      "commander": "^11"
+   },
+   "devDependencies": {
+      "@types/node": "^20",
+      "@typescript-eslint/eslint-plugin": "^6",
+      "@typescript-eslint/parser": "^6",
+      "eslint": "^8",
+      "eslint-config-prettier": "^9",
+      "eslint-plugin-prettier": "^5",
+      "eslint-plugin-simple-import-sort": "^10",
+      "prettier": "^3",
+      "typescript": "^5"
+   }
+}

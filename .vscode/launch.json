@@ -1,0 +1,22 @@
+{
+   "version": "0.2.0",
+   "configurations": [
+      {
+         "name": "Run Project",
+         "type": "node",
+         "request": "launch",
+         "preLaunchTask": "build",
+         "skipFiles": ["<node_internals>/**"],
+         "program": "${workspaceFolder}/dist/index.js",
+         "args": ["${input:args}"]
+      }
+   ],
+   "inputs": [
+      {
+         "id": "args",
+         "type": "promptString",
+         "description": "Enter arguments to pass to the program",
+         "default": "--help"
+      }
+   ]
+}

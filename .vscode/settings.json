@@ -1,0 +1,26 @@
+{
+   "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.wordWrap": "wordWrapColumn"
+   },
+   "[yaml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "editor.detectIndentation": false,
+   "editor.formatOnSave": true,
+   "editor.rulers": [120],
+   "editor.tabSize": 3,
+   "editor.wordWrap": "wordWrapColumn",
+   "editor.wordWrapColumn": 120,
+   "editor.wrappingIndent": "indent",
+   "files.insertFinalNewline": true
+}
