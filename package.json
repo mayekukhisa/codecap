@@ -11,9 +11,12 @@
       "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{json,md,yml} --ignore-path .gitignore"
    },
    "dependencies": {
-      "commander": "^11"
+      "chalk": "^5",
+      "commander": "^11",
+      "glob": "^10"
    },
    "devDependencies": {
+      "@types/glob": "^8",
       "@types/node": "^20",
       "@typescript-eslint/eslint-plugin": "^6",
       "@typescript-eslint/parser": "^6",

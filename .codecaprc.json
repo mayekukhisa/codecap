@@ -1,0 +1,10 @@
+{
+   "ruleSet": [
+      {
+         "target": "**/*.ts",
+         "targetExclude": "node_modules/**",
+         "headerFile": "license-header.txt",
+         "headerDelimiter": "^(?![\\/ ]\\*)."
+      }
+   ]
+}
