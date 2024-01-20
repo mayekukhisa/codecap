@@ -19,7 +19,9 @@ program
    .helpOption(undefined, "Show this message and exit")
    .addHelpText("after", EOL + "Homepage: https://github.com/mayekukhisa/codecap#readme")
 
-program.option("-c, --check", "Check if files have the correct header")
+program
+   .option("-c, --check", "Check if files have the correct header")
+   .option("-f, --fix", "Fix files with incorrect header")
 
 program.parse(process.argv)
 
@@ -41,6 +43,10 @@ if (!process.argv.slice(2).length) {
 
          if (options.check) {
             headerManager.checkHeaders()
+         }
+
+         if (options.fix) {
+            headerManager.fixHeaders()
          }
       } catch (error) {
          if (error instanceof SyntaxError) {

@@ -5,7 +5,7 @@
  * LICENSE file included in the root of this source tree.
  */
 import chalk from "chalk"
-import { createReadStream, existsSync, readFileSync } from "fs"
+import { createReadStream, existsSync, readFileSync, writeFileSync } from "fs"
 import { globSync } from "glob"
 import { EOL } from "os"
 import { createInterface } from "readline"
@@ -27,29 +27,12 @@ export class HeaderManager {
          for (const rule of this.config.ruleSet) {
             this.validateRule(rule)
 
-            if (!existsSync(rule.headerFile)) {
-               throw new Error("Header file not found: " + rule.headerFile)
-            }
-
-            const headerFileContent = readFileSync(rule.headerFile, "utf8").replace(/\r\n/g, "\n")
-            const currentYear = new Date().getFullYear().toString()
-            const expectedHeaderContent = headerFileContent.replace("$YEAR", currentYear)
-
+            const expectedHeaderContent = this.readHeaderFile(rule)
             const headerDelimiter = new RegExp(rule.headerDelimiter)
 
             const filePaths = globSync(rule.target, { ignore: rule.targetExclude })
             for (const filePath of filePaths) {
-               const fileStream = createReadStream(filePath)
-               const lineReader = createInterface({ input: fileStream, crlfDelay: Infinity })
-
-               let fileHeaderContent = ""
-               for await (const line of lineReader) {
-                  if (headerDelimiter.test(line)) {
-                     break
-                  }
-                  fileHeaderContent += line + "\n"
-               }
-
+               const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
                if (fileHeaderContent !== expectedHeaderContent) {
                   console.log(chalk.yellow("\u26A0 %s"), filePath)
                   issueCount++
@@ -67,11 +50,77 @@ export class HeaderManager {
       }
    }
 
+   public async fixHeaders() {
+      console.log("Fixing file headers...")
+      try {
+         let fixCount = 0
+
+         for (const rule of this.config.ruleSet) {
+            this.validateRule(rule)
+
+            const expectedHeaderContent = this.readHeaderFile(rule)
+            const headerDelimiter = new RegExp(rule.headerDelimiter)
+
+            const filePaths = globSync(rule.target, { ignore: rule.targetExclude })
+            for (const filePath of filePaths) {
+               const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
+               if (fileHeaderContent !== expectedHeaderContent) {
+                  const fileContent = this.normalizeLineEndings(readFileSync(filePath, "utf8"))
+                  const updatedFileContent =
+                     fileHeaderContent.length === 0
+                        ? expectedHeaderContent + fileContent
+                        : fileContent.replace(fileHeaderContent, expectedHeaderContent)
+
+                  writeFileSync(filePath, updatedFileContent, "utf8")
+                  console.log(chalk.green("\u2713 %s"), filePath)
+                  fixCount++
+               }
+            }
+         }
+
+         if (fixCount === 0) {
+            console.log("All matched files have the correct header!")
+         } else {
+            console.log("Changed %d %s!", fixCount, fixCount === 1 ? "file" : "files")
+         }
+      } catch (error) {
+         console.log(chalk.red((error as Error).message))
+      }
+   }
+
    private validateRule(rule: Rule) {
       const errorMessage = "Invalid rule:" + EOL + JSON.stringify(rule, null, 3) + EOL
 
       if (!rule.target) throw new Error(errorMessage + "The 'target' property is not defined")
       if (!rule.headerFile) throw new Error(errorMessage + "The 'headerFile' property is not defined")
       if (!rule.headerDelimiter) throw new Error(errorMessage + "The 'headerDelimiter' property is not defined")
+   }
+
+   private readHeaderFile(rule: Rule): string {
+      if (!existsSync(rule.headerFile)) {
+         throw new Error("Header file not found: " + rule.headerFile)
+      }
+
+      const fileContent = this.normalizeLineEndings(readFileSync(rule.headerFile, "utf8"))
+      const currentYear = new Date().getFullYear().toString()
+      return fileContent.replace("$YEAR", currentYear)
+   }
+
+   private async readFileUntilPattern(filePath: string, pattern: RegExp): Promise<string> {
+      const fileStream = createReadStream(filePath)
+      const lineReader = createInterface({ input: fileStream, crlfDelay: Infinity })
+
+      let fileContent = ""
+      for await (const line of lineReader) {
+         if (pattern.test(line)) {
+            break
+         }
+         fileContent += line + "\n"
+      }
+      return fileContent
+   }
+
+   private normalizeLineEndings(text: string): string {
+      return text.replace(/\r\n/g, "\n")
    }
 }
