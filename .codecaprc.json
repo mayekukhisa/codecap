@@ -1,8 +1,8 @@
 {
    "ruleSet": [
       {
-         "target": "**/*.ts",
-         "targetExclude": "node_modules/**",
+         "target": "**/*.{js,ts}",
+         "targetExclude": ["node_modules/**", "bin/**"],
          "headerFile": "license-header.txt",
          "headerDelimiter": "^(?![\\/ ]\\*)."
       }

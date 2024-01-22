@@ -13,9 +13,9 @@ import { Config } from "./config.js"
 import { HeaderManager } from "./header-manager.js"
 
 program
-   .name("codecap")
-   .description("A file header standardization tool")
-   .version("0.1.0", "--version", "Show the version and exit")
+   .name("__projectName__")
+   .description("__projectDescription__")
+   .version("__projectVersion__", "--version", "Show the version and exit")
    .helpOption(undefined, "Show this message and exit")
    .addHelpText("after", EOL + "Homepage: https://github.com/mayekukhisa/codecap#readme")
 

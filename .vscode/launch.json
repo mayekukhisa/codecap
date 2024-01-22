@@ -7,7 +7,7 @@
          "request": "launch",
          "preLaunchTask": "build",
          "skipFiles": ["<node_internals>/**"],
-         "program": "${workspaceFolder}/dist/index.js",
+         "program": "${workspaceFolder}/bin/index.js",
          "args": ["${input:args}"]
       }
    ],

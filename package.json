@@ -5,10 +5,10 @@
    "type": "module",
    "private": true,
    "scripts": {
-      "build": "tsc",
-      "start": "node dist/index.js",
-      "lint": "eslint --ext .ts src/ && prettier --check ./**/*.{json,md,yml} --ignore-path .gitignore",
-      "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{json,md,yml} --ignore-path .gitignore"
+      "build": "rollup -c",
+      "start": "node bin/index.js",
+      "lint": "eslint --ext .ts src/ && prettier --check ./**/*.{js,json,md,yml} --ignore-path .gitignore",
+      "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{js,json,md,yml} --ignore-path .gitignore"
    },
    "dependencies": {
       "chalk": "^5",
@@ -16,6 +16,8 @@
       "glob": "^10"
    },
    "devDependencies": {
+      "@rollup/plugin-replace": "^5",
+      "@rollup/plugin-typescript": "^11",
       "@types/glob": "^8",
       "@types/node": "^20",
       "@typescript-eslint/eslint-plugin": "^6",
@@ -25,6 +27,7 @@
       "eslint-plugin-prettier": "^5",
       "eslint-plugin-simple-import-sort": "^10",
       "prettier": "^3",
+      "rollup": "^4",
       "typescript": "^5"
    }
 }
