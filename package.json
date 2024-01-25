@@ -3,9 +3,39 @@
    "description": "A file header standardization tool",
    "version": "0.1.0",
    "type": "module",
-   "private": true,
+   "files": [
+      "bin/index.js"
+   ],
+   "bin": {
+      "codecap": "bin/index.js"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/mayekukhisa/codecap.git"
+   },
+   "homepage": "https://github.com/mayekukhisa/codecap#readme",
+   "bugs": {
+      "url": "https://github.com/mayekukhisa/codecap/issues"
+   },
+   "author": {
+      "name": "Mayeku Khisa",
+      "url": "http://mayekukhisa.com"
+   },
+   "license": "MIT",
+   "keywords": [
+      "checker",
+      "cli",
+      "copyright",
+      "file-header",
+      "header",
+      "license"
+   ],
+   "engines": {
+      "node": ">=16"
+   },
    "scripts": {
       "build": "rollup -c",
+      "build:prod": "rollup -c --environment NODE_ENV:production",
       "start": "node bin/index.js",
       "lint": "eslint --ext .ts src/ && prettier --check ./**/*.{js,json,md,yml} --ignore-path .gitignore",
       "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{js,json,md,yml} --ignore-path .gitignore"

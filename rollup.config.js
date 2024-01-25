@@ -8,6 +8,7 @@ import replace from "@rollup/plugin-replace"
 import typescript from "@rollup/plugin-typescript"
 import { readFileSync } from "fs"
 
+const isProduction = process.env.NODE_ENV === "production"
 const packageJson = JSON.parse(readFileSync("package.json", "utf8"))
 
 export default {
@@ -15,11 +16,12 @@ export default {
    output: {
       dir: "bin",
       format: "es",
-      sourcemap: true,
+      banner: "#!/usr/bin/env node\n",
+      sourcemap: !isProduction,
    },
    external: ["chalk", "commander", "fs", "os", "glob", "readline"],
    plugins: [
-      typescript(),
+      typescript({ sourceMap: !isProduction }),
       replace({
          preventAssignment: true,
          values: {
