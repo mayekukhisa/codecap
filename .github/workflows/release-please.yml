@@ -1,0 +1,39 @@
+name: Release Please
+
+on:
+   push:
+      branches:
+         - main
+
+permissions:
+   contents: write
+   pull-requests: write
+
+jobs:
+   release-please:
+      runs-on: ubuntu-latest
+      steps:
+         - id: release
+           name: Create release
+           uses: google-github-actions/release-please-action@v4
+
+         - name: Checkout repository
+           if: ${{ steps.release.outputs.release_created }}
+           uses: actions/checkout@v4
+
+         - name: Set up Node.js
+           if: ${{ steps.release.outputs.release_created }}
+           uses: actions/setup-node@v4
+           with:
+              node-version: "20"
+              registry-url: "https://registry.npmjs.org"
+
+         - name: Build with NPM
+           if: ${{ steps.release.outputs.release_created }}
+           run: npm install && npm run build:prod
+
+         - name: Publish to NPM
+           if: ${{ steps.release.outputs.release_created }}
+           env:
+              NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+           run: npm publish

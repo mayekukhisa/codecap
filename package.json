@@ -37,8 +37,8 @@
       "build": "rollup -c",
       "build:prod": "rollup -c --environment NODE_ENV:production",
       "start": "node bin/index.js",
-      "lint": "eslint --ext .ts src/ && prettier --check ./**/*.{js,json,md,yml} --ignore-path .gitignore",
-      "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{js,json,md,yml} --ignore-path .gitignore"
+      "lint": "eslint --ext .ts src/ && prettier --check ./**/*.{js,json,md,yml}",
+      "lint:fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{js,json,md,yml}"
    },
    "dependencies": {
       "chalk": "^5",
