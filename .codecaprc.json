@@ -3,7 +3,7 @@
       {
          "target": "**/*.{js,ts}",
          "targetExclude": ["node_modules/**", "bin/**"],
-         "headerFile": "license-header.txt",
+         "headerFile": "header-template.txt",
          "headerDelimiter": "^(?![\\/ ]\\*)."
       }
    ]
