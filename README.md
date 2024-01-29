@@ -4,35 +4,73 @@ Codecap is a file header standardization tool that simplifies the updating and u
 
 ## Features
 
-> **Note:** This tool is in early development and currently has no features.
+-  **Header Inspection**: Check if files have the correct header.
+-  **Header Correction**: Automatically fix files with incorrect headers.
+-  **Flexible Targeting**: Apply rules to a wide range of file types, with support for both individual and multiple patterns.
+-  **Exclusion Patterns**: Exclude specific files or directories from being processed, with support for single or multiple exclusion patterns.
 
 ## Getting Started
 
-This section shows how to obtain a copy of the project and get the tool running on your local machine.
+This section shows how to get the tool up and running on your local machine.
 
 ### System requirement
 
-To run this project, ensure the following software is installed on your system:
+To use this tool, ensure the following software is installed on your system:
 
--  Node.js 20 or newer
+-  Node.js 16 or newer
 
 ### Installation
 
-1. Clone the repository to your local machine.
+1. Open your terminal.
 
-2. Navigate to the project directory.
+2. Navigate to your node project's directory.
 
-3. Install dependencies and build the project:
-
-   ```shell
-   npm install && npm run build
-   ```
-
-4. Run the tool:
+3. Execute the following command:
 
    ```shell
-   npm start
+   npm install codecap
    ```
+
+### Configuration
+
+Set up a `.codecaprc.json` file at the root level of your project directory as shown in the example below:
+
+```json
+{
+   "ruleSet": [
+      {
+         "target": ["**/*.{js,ts}", "**/*.css"],
+         "targetExclude": ["node_modules/**", "dist/**"],
+         "headerFile": "path/to/file",
+         "headerDelimiter": "^(?![\\/ ]\\*)."
+      }
+   ]
+}
+```
+
+-  **`ruleSet`**: An array of rules defining how headers should be applied. Each rule can handle different file types uniquely.
+-  **`target`**: A pattern or an array of patterns for matching files. It specifies which files the rule should apply to.
+-  **`targetExclude`**: A pattern or an array of patterns for files or directories to exclude from the rule.
+-  **`headerFile`**: The path to a file containing the header content to be prepended to each matched file.
+-  **`headerDelimiter`**: A regex pattern that helps identify where the header ends in a file for correct insertion or replacement.
+
+### Usage
+
+Integrate the tool into your project by adding script entries in your `package.json` file:
+
+```json
+{
+   "scripts": {
+      "check-headers": "codecap --check",
+      "fix-headers": "codecap --fix"
+   }
+}
+```
+
+-  Run `npm run check-headers` to inspect your files for correct headers.
+-  Use `npm run fix-headers` to automatically correct any incorrect headers.
+
+Feel free to modify these scripts as needed to fit your project requirements.
 
 ## License
 
