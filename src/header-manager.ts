@@ -27,12 +27,14 @@ export class HeaderManager {
          for (const rule of this.config.ruleSet) {
             this.validateRule(rule)
 
-            const expectedHeaderContent = this.readHeaderFile(rule)
+            const headerTemplate = this.readHeaderFile(rule)
             const headerDelimiter = new RegExp(rule.headerDelimiter)
 
             const filePaths = globSync(rule.target, { ignore: rule.targetExclude })
             for (const filePath of filePaths) {
                const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
+               const expectedHeaderContent = this.getExpectedHeaderContent(headerTemplate, fileHeaderContent)
+
                if (fileHeaderContent !== expectedHeaderContent) {
                   console.log(chalk.yellow("\u26A0 %s"), filePath)
                   issueCount++
@@ -58,12 +60,14 @@ export class HeaderManager {
          for (const rule of this.config.ruleSet) {
             this.validateRule(rule)
 
-            const expectedHeaderContent = this.readHeaderFile(rule)
+            const headerTemplate = this.readHeaderFile(rule)
             const headerDelimiter = new RegExp(rule.headerDelimiter)
 
             const filePaths = globSync(rule.target, { ignore: rule.targetExclude })
             for (const filePath of filePaths) {
                const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
+               const expectedHeaderContent = this.getExpectedHeaderContent(headerTemplate, fileHeaderContent)
+
                if (fileHeaderContent !== expectedHeaderContent) {
                   const fileContent = this.normalizeLineEndings(readFileSync(filePath, "utf8"))
                   const updatedFileContent =
@@ -101,9 +105,7 @@ export class HeaderManager {
          throw new Error("Header file not found: " + rule.headerFile)
       }
 
-      const fileContent = this.normalizeLineEndings(readFileSync(rule.headerFile, "utf8"))
-      const currentYear = new Date().getFullYear().toString()
-      return fileContent.replace("$YEAR", currentYear)
+      return this.normalizeLineEndings(readFileSync(rule.headerFile, "utf8"))
    }
 
    private async readFileUntilPattern(filePath: string, pattern: RegExp): Promise<string> {
@@ -122,5 +124,15 @@ export class HeaderManager {
 
    private normalizeLineEndings(text: string): string {
       return text.replace(/\r\n/g, "\n")
+   }
+
+   private getExpectedHeaderContent(headerTemplate: string, fileHeaderContent: string): string {
+      const currentYear = new Date().getFullYear().toString()
+      const fileYear = fileHeaderContent.match(/\d{4}/)?.[0]
+
+      const displayYear =
+         this.config.useYearRange && fileYear && fileYear !== currentYear ? `${fileYear}-${currentYear}` : currentYear
+
+      return headerTemplate.replace("$YEAR", displayYear)
    }
 }

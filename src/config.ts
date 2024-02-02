@@ -12,5 +12,6 @@ export interface Rule {
 }
 
 export interface Config {
+   useYearRange?: boolean
    ruleSet: Rule[]
 }
