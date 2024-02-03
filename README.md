@@ -28,7 +28,7 @@ To use this tool, ensure the following software is installed on your system:
 3. Execute the following command:
 
    ```shell
-   npm install codecap
+   npm install -D codecap
    ```
 
 ### Configuration
@@ -37,6 +37,7 @@ Set up a `.codecaprc.json` file at the root level of your project directory as s
 
 ```json
 {
+   "useYearRange": true,
    "ruleSet": [
       {
          "target": ["**/*.{js,ts}", "**/*.css"],
@@ -48,11 +49,14 @@ Set up a `.codecaprc.json` file at the root level of your project directory as s
 }
 ```
 
+-  **`useYearRange`** (optional): A boolean that enables automatic year range updates, from file creation to current year.
 -  **`ruleSet`**: An array of rules defining how headers should be applied. Each rule can handle different file types uniquely.
 -  **`target`**: A pattern or an array of patterns for matching files. It specifies which files the rule should apply to.
--  **`targetExclude`**: A pattern or an array of patterns for files or directories to exclude from the rule.
+-  **`targetExclude`** (optional): A pattern or an array of patterns for files or directories to exclude from the rule.
 -  **`headerFile`**: The path to a file containing the header content to be prepended to each matched file.
 -  **`headerDelimiter`**: A regex pattern that helps identify where the header ends in a file for correct insertion or replacement.
+
+> To ensure your file headers remain up-to-date with the current year, use the `$YEAR` placeholder within your header file content.
 
 ### Usage
 
