@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/mayekukhisa/codecap/compare/v0.1.0...v0.2.0) (2024-02-03)
+
+
+### Features
+
+* support year range in file header ([2d031b2](https://github.com/mayekukhisa/codecap/commit/2d031b2e5c8120f115b896ae072fdada0595e1f4))
+
 ## [0.1.0](https://github.com/mayekukhisa/codecap/compare/v0.1.0...v0.1.0) (2024-02-01)
 
 
