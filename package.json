@@ -1,7 +1,7 @@
 {
    "name": "codecap",
    "description": "A file header standardization tool",
-   "version": "0.1.0",
+   "version": "0.2.0",
    "type": "module",
    "files": [
       "bin/index.js"
