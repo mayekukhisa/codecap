@@ -7,16 +7,22 @@
 import chalk from "chalk"
 import { createReadStream, existsSync, readFileSync, writeFileSync } from "fs"
 import { globSync } from "glob"
+import ignore from "ignore"
 import { EOL } from "os"
+import { relative } from "path"
 import { createInterface } from "readline"
 
 import { Config, Rule } from "./config.js"
 
 export class HeaderManager {
    private config: Config
+   private gitignoreFilter: ignore.Ignore
+   private hasGitignore: boolean
 
    constructor(config: Config) {
       this.config = config
+      this.gitignoreFilter = ignore.default()
+      this.hasGitignore = this.loadGitignore()
    }
 
    public async checkHeaders() {
@@ -30,7 +36,8 @@ export class HeaderManager {
             const headerTemplate = this.readHeaderFile(rule)
             const headerDelimiter = new RegExp(rule.headerDelimiter)
 
-            const filePaths = globSync(rule.target, { ignore: rule.targetExclude })
+            const filePaths = this.getFilteredFilePaths(rule)
+            console.log(filePaths)
             for (const filePath of filePaths) {
                const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
                const expectedHeaderContent = this.getExpectedHeaderContent(headerTemplate, fileHeaderContent)
@@ -63,7 +70,7 @@ export class HeaderManager {
             const headerTemplate = this.readHeaderFile(rule)
             const headerDelimiter = new RegExp(rule.headerDelimiter)
 
-            const filePaths = globSync(rule.target, { ignore: rule.targetExclude })
+            const filePaths = this.getFilteredFilePaths(rule)
             for (const filePath of filePaths) {
                const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
                const expectedHeaderContent = this.getExpectedHeaderContent(headerTemplate, fileHeaderContent)
@@ -92,6 +99,17 @@ export class HeaderManager {
       }
    }
 
+   private loadGitignore(): boolean {
+      const gitignorePath = ".gitignore"
+      if (existsSync(gitignorePath)) {
+         const gitignoreContent = readFileSync(gitignorePath, "utf8")
+         this.gitignoreFilter.add(gitignoreContent)
+         return true
+      }
+
+      return false
+   }
+
    private validateRule(rule: Rule) {
       const errorMessage = "Invalid rule:" + EOL + JSON.stringify(rule, null, 3) + EOL
 
@@ -106,6 +124,15 @@ export class HeaderManager {
       }
 
       return this.normalizeLineEndings(readFileSync(rule.headerFile, "utf8"))
+   }
+
+   private getFilteredFilePaths(rule: Rule): string[] {
+      const filePaths = globSync(rule.target, { ignore: rule.targetExclude, nodir: true })
+      if (!this.hasGitignore) {
+         return filePaths
+      }
+
+      return filePaths.filter((filePath) => !this.gitignoreFilter.ignores(relative(process.cwd(), filePath)))
    }
 
    private async readFileUntilPattern(filePath: string, pattern: RegExp): Promise<string> {

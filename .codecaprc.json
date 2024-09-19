@@ -3,7 +3,6 @@
    "ruleSet": [
       {
          "target": "**/*.{js,ts}",
-         "targetExclude": ["node_modules/**", "bin/**"],
          "headerFile": "header-template.txt",
          "headerDelimiter": "^(?![\\/ ]\\*)."
       }

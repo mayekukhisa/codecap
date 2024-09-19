@@ -19,7 +19,7 @@ export default {
       banner: "#!/usr/bin/env node\n",
       sourcemap: !isProduction,
    },
-   external: ["chalk", "commander", "fs", "os", "glob", "readline"],
+   external: ["chalk", "commander", "fs", "glob", "ignore", "os", "path", "readline"],
    plugins: [
       typescript({ sourceMap: !isProduction }),
       replace({
