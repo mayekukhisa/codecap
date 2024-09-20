@@ -28,9 +28,13 @@ jobs:
               node-version: "20"
               registry-url: "https://registry.npmjs.org"
 
-         - name: Build with NPM
+         - name: Install PNPM
            if: ${{ steps.release.outputs.release_created }}
-           run: npm install && npm run build:prod
+           run: npm install -g pnpm
+
+         - name: Build with PNPM
+           if: ${{ steps.release.outputs.release_created }}
+           run: pnpm install && pnpm build:prod
 
          - name: Publish to NPM
            if: ${{ steps.release.outputs.release_created }}
