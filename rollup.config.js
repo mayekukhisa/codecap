@@ -11,12 +11,18 @@ import { readFileSync } from "fs"
 const isProduction = process.env.NODE_ENV === "production"
 const packageJson = JSON.parse(readFileSync("package.json", "utf8"))
 
+var bundleBanner = "#!/usr/bin/env node\n"
+const copyrightHeaderMatch = readFileSync("rollup.config.js", "utf8").match(/\/\*[\s\S]*?Copyright[\s\S]*?\*\//)
+if (copyrightHeaderMatch) {
+   bundleBanner += `\n${copyrightHeaderMatch[0]}`
+}
+
 export default {
    input: "src/index.ts",
    output: {
       dir: "bin",
       format: "es",
-      banner: "#!/usr/bin/env node\n",
+      banner: bundleBanner,
       sourcemap: !isProduction,
    },
    external: ["chalk", "commander", "fs", "glob", "ignore", "os", "path", "readline"],
