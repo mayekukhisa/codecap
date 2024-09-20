@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/mayekukhisa/codecap/compare/v0.2.0...v0.3.0) (2024-09-20)
+
+
+### Features
+
+* respect `.gitignore` when excluding targets ([7e03b8d](https://github.com/mayekukhisa/codecap/commit/7e03b8db68b159b956b371ef72d2765a3a1ff28b))
+
 ## [0.2.0](https://github.com/mayekukhisa/codecap/compare/v0.1.0...v0.2.0) (2024-02-03)
 
 
