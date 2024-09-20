@@ -67,7 +67,7 @@ Create a `.codecaprc.json` file at the root level of your project directory to d
 ```
 
 | Key                            | Type         | Description                                                       |
-| ------------------------------ | ------------ | ----------------------------------------------------------------- |
+| :----------------------------- | :----------- | :---------------------------------------------------------------- |
 | `ruleSet`                      | Array        | Defines rules for applying headers to different file types.       |
 | `target`                       | String/Array | Specifies file patterns to match for each rule.                   |
 | `headerFile`                   | String       | Specifies the path to the file containing the header content.     |
