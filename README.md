@@ -1,39 +1,56 @@
 # Codecap
 
-Codecap is a file header standardization tool that simplifies the updating and uniformity of headers across various file types within a project. It ensures consistent presentation of details like license information, author credentials, or project descriptions, promoting a harmonized style throughout your codebase.
+Codecap is a file header standardization tool designed to streamline the process of maintaining consistent headers across diverse file types in your project. It automates the task of updating and unifying essential information such as license details, author credentials, and project descriptions, ensuring a cohesive style throughout your codebase.
 
-## Features
+## Key Features
 
--  **Header Inspection**: Check if files have the correct header.
--  **Header Correction**: Automatically fix files with incorrect headers.
--  **Flexible Targeting**: Apply rules to a wide range of file types, with support for both individual and multiple patterns.
--  **Exclusion Patterns**: Exclude specific files or directories from being processed, with support for single or multiple exclusion patterns.
+-  🔍 **Smart Header Inspection**: Efficiently detect files with missing or incorrect headers.
+-  🛠️ **Automatic Correction**: Seamlessly fix and update file headers with a single command.
+-  🎯 **Versatile Targeting**: Support for multiple file types and patterns, enabling precise rule application.
+-  🚫 **Intelligent Exclusions**: Respect `.gitignore` and custom exclusion patterns for granular control.
+-  🔄 **Year Range Automation**: Automatically update copyright year ranges to stay current.
+-  🧩 **Flexible Configuration**: Easily customize rules and headers via JSON configuration file.
 
 ## Getting Started
 
-This section shows how to get the tool up and running on your local machine.
+This section shows how to get Codecap up and running on your local machine.
 
-### System requirement
+### System Requirements
 
-To use this tool, ensure the following software is installed on your system:
+Ensure the following software is installed on your system before using Codecap:
 
--  Node.js 16 or newer
+-  Node.js (v16 or later)
 
 ### Installation
 
-1. Open your terminal.
+You can install Codecap either globally or locally in your project.
 
-2. Navigate to your node project's directory.
+#### Global Installation
 
-3. Execute the following command:
+To install Codecap globally, use the following command:
 
-   ```shell
-   npm install -D codecap
-   ```
+```shell
+npm install -g codecap
+```
+
+#### Local Installation
+
+To install Codecap as a dev dependency in your project, use one of the following commands based on your package manager:
+
+```shell
+# npm
+npm install -D codecap
+
+# pnpm
+pnpm add -D codecap
+
+# yarn
+yarn add -D codecap
+```
 
 ### Configuration
 
-Set up a `.codecaprc.json` file at the root level of your project directory as shown in the example below:
+Create a `.codecaprc.json` file at the root level of your project directory to define rules for managing headers. Here's an example configuration:
 
 ```json
 {
@@ -49,36 +66,53 @@ Set up a `.codecaprc.json` file at the root level of your project directory as s
 }
 ```
 
--  **`useYearRange`** (optional): A boolean that enables automatic year range updates, from file creation to current year.
--  **`ruleSet`**: An array of rules defining how headers should be applied. Each rule can handle different file types uniquely.
--  **`target`**: A pattern or an array of patterns for matching files. It specifies which files the rule should apply to.
--  **`targetExclude`** (optional): A pattern or an array of patterns for files or directories to exclude from the rule.
--  **`headerFile`**: The path to a file containing the header content to be prepended to each matched file.
--  **`headerDelimiter`**: A regex pattern that helps identify where the header ends in a file for correct insertion or replacement.
+| Key                            | Type         | Description                                                       |
+| :----------------------------- | :----------- | :---------------------------------------------------------------- |
+| `ruleSet`                      | Array        | Defines rules for applying headers to different file types.       |
+| `target`                       | String/Array | Specifies file patterns to match for each rule.                   |
+| `headerFile`                   | String       | Specifies the path to the file containing the header content.     |
+| `headerDelimiter`              | Regex        | Specifies the pattern to identify the end of the header in files. |
+| `useYearRange` **(Optional)**  | Boolean      | Enables automatic year range updates.                             |
+| `targetExclude` **(Optional)** | String/Array | Specifies patterns for files/directories to exclude.              |
 
-> To ensure your file headers remain up-to-date with the current year, use the `$YEAR` placeholder within your header file content.
+> [!TIP]
+>
+> Use the `$YEAR` placeholder in your header files to automatically keep copyright years current. Codecap will update this to the latest year when fixing headers.
 
 ### Usage
 
-Integrate the tool into your project by adding script entries in your `package.json` file:
+#### Global Usage
+
+If you've installed Codecap globally, you can run it directly from any directory:
+
+```shell
+codecap --check
+codecap --fix
+```
+
+#### Local Usage
+
+If you've installed Codecap locally in your project, integrate it into your project by adding script entries in your `package.json` file:
 
 ```json
 {
    "scripts": {
-      "check-headers": "codecap --check",
-      "fix-headers": "codecap --fix"
+      "check": "codecap --check",
+      "fix": "codecap --fix"
    }
 }
 ```
 
--  Run `npm run check-headers` to inspect your files for correct headers.
--  Use `npm run fix-headers` to automatically correct any incorrect headers.
+Then you can run:
+
+-  `npm run check` (or `pnpm check` or `yarn check`) to inspect your files for correct headers.
+-  `npm run fix` (or `pnpm fix` or `yarn fix`) to automatically correct any incorrect headers.
 
 Feel free to modify these scripts as needed to fit your project requirements.
 
 ## License
 
-This tool is available under the terms of the [MIT license][1].
+Codecap is available under the terms of the [MIT license][1].
 
 &copy; 2024 Mayeku Khisa.
 
