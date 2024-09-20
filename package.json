@@ -1,42 +1,41 @@
 {
    "name": "codecap",
-   "description": "A file header standardization tool",
    "version": "0.2.0",
-   "type": "module",
-   "files": [
-      "bin/index.js"
-   ],
-   "bin": {
-      "codecap": "bin/index.js"
-   },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/mayekukhisa/codecap.git"
-   },
-   "homepage": "https://github.com/mayekukhisa/codecap#readme",
-   "bugs": {
-      "url": "https://github.com/mayekukhisa/codecap/issues"
-   },
+   "description": "A file header standardization tool",
    "author": {
       "name": "Mayeku Khisa",
       "url": "https://mayekukhisa.com"
    },
    "license": "MIT",
    "keywords": [
-      "checker",
       "cli",
+      "code-quality",
       "copyright",
+      "developer-tools",
       "file-header",
+      "formatter",
       "header",
-      "license"
+      "license",
+      "linter",
+      "productivity",
+      "standardization",
+      "static-analysis"
+   ],
+   "type": "module",
+   "main": "bin/index.js",
+   "bin": {
+      "codecap": "bin/index.js"
+   },
+   "files": [
+      "bin/index.js"
    ],
    "engines": {
       "node": ">=16"
    },
    "scripts": {
+      "start": "node bin/index.js",
       "build": "rollup -c",
       "build:prod": "rollup -c --environment NODE_ENV:production",
-      "start": "node bin/index.js",
       "check": "eslint --ext .ts src/ && prettier --check ./**/*.{js,json,md,yml}",
       "fix": "eslint --ext .ts src/ --fix && prettier --write ./**/*.{js,json,md,yml}"
    },
@@ -60,5 +59,13 @@
       "prettier": "^3.3.3",
       "rollup": "^4.21.3",
       "typescript": "^5.6.2"
-   }
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/mayekukhisa/codecap.git"
+   },
+   "bugs": {
+      "url": "https://github.com/mayekukhisa/codecap/issues"
+   },
+   "homepage": "https://github.com/mayekukhisa/codecap#readme"
 }
