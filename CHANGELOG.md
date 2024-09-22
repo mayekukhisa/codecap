@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/mayekukhisa/codecap/compare/v0.3.0...v0.3.1) (2024-09-22)
+
+
+### Bug Fixes
+
+* remove unintended console output during checks ([6213695](https://github.com/mayekukhisa/codecap/commit/621369589b8f0ead4d8c5372ce1b0e8e3a852715))
+
 ## [0.3.0](https://github.com/mayekukhisa/codecap/compare/v0.2.0...v0.3.0) (2024-09-20)
 
 
