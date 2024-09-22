@@ -37,7 +37,6 @@ export class HeaderManager {
             const headerDelimiter = new RegExp(rule.headerDelimiter)
 
             const filePaths = this.getFilteredFilePaths(rule)
-            console.log(filePaths)
             for (const filePath of filePaths) {
                const fileHeaderContent = await this.readFileUntilPattern(filePath, headerDelimiter)
                const expectedHeaderContent = this.getExpectedHeaderContent(headerTemplate, fileHeaderContent)
