@@ -5,13 +5,13 @@
  * LICENSE file included in the root of this source tree.
  */
 export interface Rule {
-   target: string | string[]
-   targetExclude?: string | string[]
-   headerFile: string
-   headerDelimiter: string
+  target: string | string[]
+  targetExclude?: string | string[]
+  headerFile: string
+  headerDelimiter: string
 }
 
 export interface Config {
-   useYearRange?: boolean
-   ruleSet: Rule[]
+  useYearRange?: boolean
+  ruleSet: Rule[]
 }

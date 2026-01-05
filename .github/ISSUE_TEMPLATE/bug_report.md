@@ -30,10 +30,10 @@ Explain what actually happened instead of the expected behavior.
 
 Include details about your environment, such as:
 
--  Node.js version,
--  Package version,
--  Operating System, and
--  Any other relevant package dependencies
+- Node.js version,
+- Package version,
+- Operating System, and
+- Any other relevant package dependencies
 
 ### Error Logs
 
@@ -43,6 +43,6 @@ Include any error logs or stack traces associated with the bug.
 
 Add any other context about the problem here, such as:
 
--  Specific configurations or settings used,
--  Date and time when the bug was encountered, or
--  Any other information that might be relevant for troubleshooting
+- Specific configurations or settings used,
+- Date and time when the bug was encountered, or
+- Any other information that might be relevant for troubleshooting

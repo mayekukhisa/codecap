@@ -1,10 +1,10 @@
 {
-   "useYearRange": true,
-   "ruleSet": [
-      {
-         "target": "**/*.{js,ts}",
-         "headerFile": "header-template.txt",
-         "headerDelimiter": "^(?![\\/ ]\\*)."
-      }
-   ]
+  "useYearRange": true,
+  "ruleSet": [
+    {
+      "target": "**/*.{js,ts}",
+      "headerFile": "header-template.txt",
+      "headerDelimiter": "^(?![\\/ ]\\*)."
+    }
+  ]
 }

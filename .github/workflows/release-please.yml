@@ -1,41 +1,41 @@
 name: Release Please
 
 on:
-   workflow_dispatch:
+  workflow_dispatch:
 
 permissions:
-   contents: write
-   pull-requests: write
+  contents: write
+  pull-requests: write
 
 jobs:
-   release-please:
-      runs-on: ubuntu-latest
-      steps:
-         - id: release
-           name: Create release
-           uses: google-github-actions/release-please-action@v4
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - id: release
+        name: Create release
+        uses: google-github-actions/release-please-action@v4
 
-         - name: Checkout repository
-           if: ${{ steps.release.outputs.release_created }}
-           uses: actions/checkout@v4
+      - name: Checkout repository
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v4
 
-         - name: Set up Node.js
-           if: ${{ steps.release.outputs.release_created }}
-           uses: actions/setup-node@v4
-           with:
-              node-version: "20"
-              registry-url: "https://registry.npmjs.org"
+      - name: Set up Node.js
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
-         - name: Install PNPM
-           if: ${{ steps.release.outputs.release_created }}
-           run: npm install -g pnpm
+      - name: Install PNPM
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm install -g pnpm
 
-         - name: Build with PNPM
-           if: ${{ steps.release.outputs.release_created }}
-           run: pnpm install && pnpm build:prod
+      - name: Build with PNPM
+        if: ${{ steps.release.outputs.release_created }}
+        run: pnpm install && pnpm build:prod
 
-         - name: Publish to NPM
-           if: ${{ steps.release.outputs.release_created }}
-           env:
-              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-           run: npm publish
+      - name: Publish to NPM
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish

@@ -4,12 +4,12 @@ Codecap is a file header standardization tool designed to streamline the process
 
 ## Key Features
 
--  🔍 **Smart Header Inspection**: Efficiently detect files with missing or incorrect headers.
--  🛠️ **Automatic Correction**: Seamlessly fix and update file headers with a single command.
--  🎯 **Versatile Targeting**: Support for multiple file types and patterns, enabling precise rule application.
--  🚫 **Intelligent Exclusions**: Respect `.gitignore` and custom exclusion patterns for granular control.
--  🔄 **Year Range Automation**: Automatically update copyright year ranges to stay current.
--  🧩 **Flexible Configuration**: Easily customize rules and headers via JSON configuration file.
+- 🔍 **Smart Header Inspection**: Efficiently detect files with missing or incorrect headers.
+- 🛠️ **Automatic Correction**: Seamlessly fix and update file headers with a single command.
+- 🎯 **Versatile Targeting**: Support for multiple file types and patterns, enabling precise rule application.
+- 🚫 **Intelligent Exclusions**: Respect `.gitignore` and custom exclusion patterns for granular control.
+- 🔄 **Year Range Automation**: Automatically update copyright year ranges to stay current.
+- 🧩 **Flexible Configuration**: Easily customize rules and headers via JSON configuration file.
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ This section shows how to get Codecap up and running on your local machine.
 
 Ensure the following software is installed on your system before using Codecap:
 
--  Node.js (v16 or later)
+- Node.js (v16 or later)
 
 ### Installation
 
@@ -54,15 +54,15 @@ Create a `.codecaprc.json` file at the root level of your project directory to d
 
 ```json
 {
-   "useYearRange": true,
-   "ruleSet": [
-      {
-         "target": ["**/*.{js,ts}", "**/*.css"],
-         "targetExclude": ["node_modules/**", "dist/**"],
-         "headerFile": "path/to/file",
-         "headerDelimiter": "^(?![\\/ ]\\*)."
-      }
-   ]
+  "useYearRange": true,
+  "ruleSet": [
+    {
+      "target": ["**/*.{js,ts}", "**/*.css"],
+      "targetExclude": ["node_modules/**", "dist/**"],
+      "headerFile": "path/to/file",
+      "headerDelimiter": "^(?![\\/ ]\\*)."
+    }
+  ]
 }
 ```
 
@@ -96,17 +96,17 @@ If you've installed Codecap locally in your project, integrate it into your proj
 
 ```json
 {
-   "scripts": {
-      "check": "codecap --check",
-      "fix": "codecap --fix"
-   }
+  "scripts": {
+    "check": "codecap --check",
+    "fix": "codecap --fix"
+  }
 }
 ```
 
 Then you can run:
 
--  `npm run check` (or `pnpm check` or `yarn check`) to inspect your files for correct headers.
--  `npm run fix` (or `pnpm fix` or `yarn fix`) to automatically correct any incorrect headers.
+- `npm run check` (or `pnpm check` or `yarn check`) to inspect your files for correct headers.
+- `npm run fix` (or `pnpm fix` or `yarn fix`) to automatically correct any incorrect headers.
 
 Feel free to modify these scripts as needed to fit your project requirements.
 
