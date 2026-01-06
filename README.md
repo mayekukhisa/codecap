@@ -114,6 +114,6 @@ Feel free to modify these scripts as needed to fit your project requirements.
 
 Codecap is available under the terms of the [MIT license][1].
 
-&copy; 2024 Mayeku Khisa.
+&copy; 2024-2026 Mayeku Khisa.
 
 [1]: LICENSE
